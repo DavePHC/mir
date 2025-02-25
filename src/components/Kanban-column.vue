@@ -1,9 +1,9 @@
 <script setup>
 
-import {computed} from "vue";
+import Task from "@/components/Task.vue";
 
 defineProps({
-  statuses: Array,
+  board: Array,
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,12 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <template>
- <div v-for="(status, index) in statuses" class="kanban-column">
+ <div v-for="(column, index) in board" :key="index" class="kanban-column">
    <div class="kanban-column__head">
-     {{status}}
+     {{column.status}}
    </div>
    <div class="kanban-column__body">
      <button class="kanban-column__button">+ Добавить</button>
+     <Task v-for="(task, taskIndex) in column.tasks"
+           :key=taskIndex
+           :task="task" />
    </div>
  </div>
 </template>
